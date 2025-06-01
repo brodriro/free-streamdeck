@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreeStreamDeck</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>brodriro - FreeStreamDeck</h1>
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
+                <label class="switch">
+                    <input type="checkbox" id="theme-switch">
+                    <span class="slider round"></span>
+                </label>
+                <i class="fas fa-sun"></i>
+            </div>
+            <button id="config-btn" class="config-btn">
+                <i class="fas fa-cog"></i> Settings
+            </button>
+        </header>
+
+        <main>
+            <div id="grid-container" class="grid-container">
+                <!-- Buttons will be dynamically generated here -->
+            </div>
+        </main>
+
+        <!-- Configuration Modal -->
+        <div id="config-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>StreamDeck Configuration</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="config-section">
+                        <h3>Global Settings</h3>
+                        <div class="form-group">
+                            <label for="grid-size">Grid Size (4-24):</label>
+                            <input type="number" id="grid-size" min="4" max="24" value="8">
+                            <button id="save-grid-btn" class="btn">Save Grid Size</button>
+                        </div>
+                    </div>
+
+                    <div class="config-section">
+                        <h3>Add New Button</h3>
+                        <form id="new-button-form">
+                            <div class="form-group">
+                                <label for="button-name">Name:</label>
+                                <input type="text" id="button-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="button-url">URL:</label>
+                                <input type="text" id="button-url" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="button-type">Type:</label>
+                                <select id="button-type">
+                                    <option value="WEB">Web</option>
+                                    <option value="APP">App</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="button-icon">Icon:</label>
+                                <input type="file" id="button-icon" accept="image/*">
+                            </div>
+                            <div class="form-group">
+                                <label for="button-route">Route:</label>
+                                <input type="text" id="button-route" disabled>
+                            </div>
+                            <button type="submit" class="btn">Add Button</button>
+                        </form>
+                    </div>
+
+                    <div class="config-section">
+                        <h3>Button List</h3>
+                        <div id="button-list" class="button-list">
+                            <!-- Button list will be generated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Button Modal -->
+        <div id="edit-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Edit Button</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-button-form">
+                        <input type="hidden" id="edit-button-id">
+                        <div class="form-group">
+                            <label for="edit-button-name">Name:</label>
+                            <input type="text" id="edit-button-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-button-url">URL:</label>
+                            <input type="text" id="edit-button-url" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-button-type">Type:</label>
+                            <select id="edit-button-type">
+                                <option value="WEB">Web</option>
+                                <option value="APP">App</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-button-icon">Icon:</label>
+                            <input type="file" id="edit-button-icon" accept="image/*">
+                            <div id="current-icon-preview" class="icon-preview"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-button-route">Route:</label>
+                            <input type="text" id="edit-button-route">
+                        </div>
+                        <button type="submit" class="btn">Update Button</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
