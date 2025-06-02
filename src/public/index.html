@@ -66,12 +66,13 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="button-icon">Icon:</label>
-                                <input type="file" id="button-icon" accept="image/*">
+                                <label for="button-icon">Icon (FontAwesome name):</label>
+                                <input type="text" id="button-icon" placeholder="e.g., fas fa-home">
+                                <small class="form-hint">Enter a FontAwesome icon name (e.g., 'fas fa-home')</small>
                             </div>
                             <div class="form-group">
-                                <label for="button-route">Route:</label>
-                                <input type="text" id="button-route" disabled>
+                                <label for="button-icon-file">Or upload custom icon:</label>
+                                <input type="file" id="button-icon-file" accept="image/*">
                             </div>
                             <button type="submit" class="btn">Add Button</button>
                         </form>
@@ -113,13 +114,14 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="edit-button-icon">Icon:</label>
-                            <input type="file" id="edit-button-icon" accept="image/*">
-                            <div id="current-icon-preview" class="icon-preview"></div>
+                            <label for="edit-button-icon">Icon (FontAwesome name):</label>
+                            <input type="text" id="edit-button-icon" placeholder="e.g., fas fa-home">
+                            <small class="form-hint">Enter a FontAwesome icon name (e.g., 'fas fa-home')</small>
                         </div>
                         <div class="form-group">
-                            <label for="edit-button-route">Route:</label>
-                            <input type="text" id="edit-button-route">
+                            <label for="edit-button-icon-file">Or upload custom icon:</label>
+                            <input type="file" id="edit-button-icon-file" accept="image/*">
+                            <div id="current-icon-preview" class="icon-preview"></div>
                         </div>
                         <button type="submit" class="btn">Update Button</button>
                     </form>

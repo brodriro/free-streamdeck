@@ -115,10 +115,10 @@ app.post('/api/config/grid', (req: Request, res: Response): void => {
 });
 
 // Add new button
-app.post('/api/buttons', upload.single('icon'), (req: Request, res: Response): void => {
+app.post('/api/buttons', upload.single('iconFile'), (req: Request, res: Response): void => {
   try {
-    const { name, url, type } = req.body;
-    const icon = req.file ? `/icons/${req.file.filename}` : '/icons/default-icon.png';
+    // Parse form data
+    const { name, url, type, icon } = req.body;
     
     if (!name || !url || !type) {
       res.status(400).json({ error: 'Missing required fields' });
@@ -127,11 +127,17 @@ app.post('/api/buttons', upload.single('icon'), (req: Request, res: Response): v
     
     const config = readConfig();
     
+    // Determine which icon to use (in order of preference):
+    // 1. FontAwesome icon if provided
+    // 2. Uploaded file if provided
+    // 3. Default icon if neither is provided
+    const buttonIcon = icon || (req.file ? `/icons/${req.file.filename}` : '/icons/default-icon.png');
+    
     const newButton: Button = {
       id: Date.now().toString(),
-      name,
-      icon,
-      url,
+      name: name.toString(),
+      icon: buttonIcon,
+      url: url.toString(),
       type: type as 'APP' | 'WEB',
       state: 'off'
     };
@@ -147,10 +153,10 @@ app.post('/api/buttons', upload.single('icon'), (req: Request, res: Response): v
 });
 
 // Update button
-app.put('/api/buttons/:id', upload.single('icon'), (req: Request, res: Response): void => {
+app.put('/api/buttons/:id', upload.single('iconFile'), (req: Request, res: Response): void => {
   try {
     const { id } = req.params;
-    const { name, url, type, route } = req.body;
+    const { name, url, type, icon } = req.body;
     
     const config = readConfig();
     const buttonIndex = config.buttons.findIndex(b => b.id === id);
@@ -160,13 +166,25 @@ app.put('/api/buttons/:id', upload.single('icon'), (req: Request, res: Response)
       return;
     }
     
-    const updatedButton = { ...config.buttons[buttonIndex] };
+    // Determine which icon to use (in order of preference):
+    // 1. New FontAwesome icon if provided
+    // 2. New uploaded file if provided
+    // 3. Keep existing icon if neither is provided
+    let newIcon = config.buttons[buttonIndex].icon;
+    if (icon) {
+      newIcon = icon.toString(); // Use FontAwesome icon
+    } else if (req.file) {
+      newIcon = `/icons/${req.file.filename}`; // Use uploaded file
+    }
     
-    if (name) updatedButton.name = name;
-    if (url) updatedButton.url = url;
-    if (type) updatedButton.type = type as 'APP' | 'WEB';
-    if (route) updatedButton.route = route;
-    if (req.file) updatedButton.icon = `/icons/${req.file.filename}`;
+    // Update button properties
+    const updatedButton = {
+      ...config.buttons[buttonIndex],
+      name: name ? name.toString() : config.buttons[buttonIndex].name,
+      url: url ? url.toString() : config.buttons[buttonIndex].url,
+      type: (type as 'APP' | 'WEB') || config.buttons[buttonIndex].type,
+      icon: newIcon
+    };
     
     config.buttons[buttonIndex] = updatedButton;
     writeConfig(config);

@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderGrid() {
         gridContainer.innerHTML = '';
-        gridContainer.style.gridTemplateColumns = `repeat(auto-fill, minmax(${Math.max(100, 800 / Math.sqrt(config.gridSize))}px, 1fr))`;
+        gridContainer.style.gridTemplateColumns = `repeat(auto-fill, minmax(${Math.max(100, 450 / Math.sqrt(config.gridSize))}px, 1fr))`;
 
         // Create buttons based on config
         for (let i = 0; i < config.gridSize; i++) {
@@ -90,17 +90,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+
     function createButtonElement(button) {
         const buttonElement = document.createElement('div');
         buttonElement.className = `button-item button-${button.state || 'empty'}`;
         buttonElement.dataset.id = button.id;
-
+        console.log(button);    
         if (button.state !== 'empty') {
-            const iconElement = document.createElement('img');
-            iconElement.src = button.icon || '/icons/default-icon.png';
-            iconElement.alt = button.name;
-            iconElement.className = 'button-icon';
-            buttonElement.appendChild(iconElement);
+            // Check if it's a FontAwesome icon (starts with 'fa-' or 'fas ' etc.)
+            if (button.icon && (button.icon.includes('fa-') || button.icon.startsWith('fas ') || button.icon.startsWith('far ') || button.icon.startsWith('fab '))) {
+                const iconElement = document.createElement('i');
+                // Ensure the icon class is properly formatted
+                const iconClass = button.icon.trim().startsWith('fa-') ? `fas ${button.icon}` : button.icon;
+                iconElement.className = `button-icon ${iconClass}`;
+                buttonElement.appendChild(iconElement);
+            } else if (button.icon) {
+                // It's an image icon
+                const iconElement = document.createElement('img');
+                iconElement.src = button.icon;
+                iconElement.alt = button.name;
+                iconElement.className = 'button-icon';
+                buttonElement.appendChild(iconElement);
+            } else {
+                // Default icon if no icon is set
+                const iconElement = document.createElement('i');
+                iconElement.className = 'button-icon fas fa-question-circle';
+                buttonElement.appendChild(iconElement);
+            }
 
             const nameElement = document.createElement('div');
             nameElement.className = 'button-name';
@@ -108,6 +124,26 @@ document.addEventListener('DOMContentLoaded', () => {
             buttonElement.appendChild(nameElement);
 
             buttonElement.addEventListener('click', () => activateButton(button.id));
+        } else {
+            // Add plus icon for empty buttons
+            const plusIcon = document.createElement('i');
+            plusIcon.className = 'fas fa-plus';
+            plusIcon.style.fontSize = '32px';
+            plusIcon.style.marginBottom = '8px';
+            buttonElement.appendChild(plusIcon);
+
+            const addText = document.createElement('div');
+            addText.className = 'button-name';
+            addText.textContent = 'Add Button';
+            buttonElement.appendChild(addText);
+
+            // Open the config modal when clicking an empty button
+            buttonElement.addEventListener('click', (e) => {
+                e.preventDefault();
+                configModal.style.display = 'block';
+                // Focus on the name field for better UX
+                document.getElementById('button-name').focus();
+            });
         }
 
         return buttonElement;
@@ -175,11 +211,18 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('url', document.getElementById('button-url').value);
         formData.append('type', document.getElementById('button-type').value);
         
-        const iconFile = document.getElementById('button-icon').files[0];
-        if (iconFile) {
-            formData.append('icon', iconFile);
+        // Handle FontAwesome icon
+        const fontAwesomeIcon = document.getElementById('button-icon').value.trim();
+        if (fontAwesomeIcon) {
+            formData.append('icon', fontAwesomeIcon);
         }
         
+        // Handle file upload
+        const iconFile = document.getElementById('button-icon-file').files[0];
+        if (iconFile) {
+            formData.append('iconFile', iconFile);
+        }
+       
         try {
             const response = await fetch(`${API_URL}/api/buttons`, {
                 method: 'POST',
@@ -190,9 +233,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const newButton = await response.json();
                 config.buttons.push(newButton);
                 renderGrid();
-                renderButtonList();
                 newButtonForm.reset();
                 alert('Button added successfully');
+            } else {
+                const error = await response.json();
+                alert(error.message || 'Failed to add button');
             }
         } catch (error) {
             console.error('Error adding button:', error);
@@ -215,11 +260,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const infoDiv = document.createElement('div');
             infoDiv.className = 'button-list-info';
             
-            const iconImg = document.createElement('img');
-            iconImg.src = button.icon || '/icons/default-icon.png';
-            iconImg.alt = button.name;
-            iconImg.className = 'button-list-icon';
-            infoDiv.appendChild(iconImg);
+            // Check if it's a FontAwesome icon or an image
+            if (button.icon && (button.icon.includes('fa-') || button.icon.startsWith('fas ') || button.icon.startsWith('far ') || button.icon.startsWith('fab '))) {
+                const iconElement = document.createElement('i');
+                // Ensure the icon class is properly formatted
+                const iconClass = button.icon.trim().startsWith('fa-') ? `fas ${button.icon}` : button.icon;
+                iconElement.className = `button-list-icon ${iconClass}`;
+                infoDiv.appendChild(iconElement);
+            } else if (button.icon) {
+                const iconImg = document.createElement('img');
+                iconImg.src = button.icon;
+                iconImg.alt = button.name;
+                iconImg.className = 'button-list-icon';
+                infoDiv.appendChild(iconImg);
+            } else {
+                // Default icon if no icon is set
+                const iconElement = document.createElement('i');
+                iconElement.className = 'button-list-icon fas fa-question-circle';
+                infoDiv.appendChild(iconElement);
+            }
             
             const nameSpan = document.createElement('span');
             nameSpan.textContent = button.name;
@@ -249,13 +308,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openEditModal(button) {
         document.getElementById('edit-button-id').value = button.id;
-        document.getElementById('edit-button-name').value = button.name;
-        document.getElementById('edit-button-url').value = button.url;
-        document.getElementById('edit-button-type').value = button.type;
-        document.getElementById('edit-button-route').value = button.route || '';
+        document.getElementById('edit-button-name').value = button.name || '';
+        document.getElementById('edit-button-url').value = button.url || '';
+        document.getElementById('edit-button-type').value = button.type || 'WEB';
         
-        const iconPreview = document.getElementById('current-icon-preview');
-        iconPreview.innerHTML = `<img src="${button.icon || '/icons/default-icon.png'}" alt="${button.name}">`;
+        // Clear previous icon inputs
+        document.getElementById('edit-button-icon').value = '';
+        document.getElementById('edit-button-icon-file').value = '';
+        
+        const preview = document.getElementById('current-icon-preview');
+        preview.innerHTML = '';
+        
+        if (button.icon) {
+            // Check if it's a FontAwesome icon
+            if (button.icon.startsWith('fas ') || button.icon.startsWith('far ') || button.icon.startsWith('fab ')) {
+                const icon = document.createElement('i');
+                icon.className = `fa-2x ${button.icon}`;
+                preview.appendChild(icon);
+                document.getElementById('edit-button-icon').value = button.icon;
+            } else {
+                // It's an image icon
+                const img = document.createElement('img');
+                img.src = button.icon;
+                img.style.maxWidth = '100%';
+                img.style.maxHeight = '100px';
+                preview.appendChild(img);
+            }
+        }
         
         editModal.style.display = 'block';
     }
@@ -263,20 +342,26 @@ document.addEventListener('DOMContentLoaded', () => {
     async function updateButton(event) {
         event.preventDefault();
         
-        const buttonId = document.getElementById('edit-button-id').value;
+        const id = document.getElementById('edit-button-id').value;
         const formData = new FormData();
         formData.append('name', document.getElementById('edit-button-name').value);
         formData.append('url', document.getElementById('edit-button-url').value);
         formData.append('type', document.getElementById('edit-button-type').value);
-        formData.append('route', document.getElementById('edit-button-route').value);
         
-        const iconFile = document.getElementById('edit-button-icon').files[0];
+        // Handle FontAwesome icon
+        const fontAwesomeIcon = document.getElementById('edit-button-icon').value.trim();
+        if (fontAwesomeIcon) {
+            formData.append('icon', fontAwesomeIcon);
+        }
+        
+        // Handle file upload
+        const iconFile = document.getElementById('edit-button-icon-file').files[0];
         if (iconFile) {
-            formData.append('icon', iconFile);
+            formData.append('iconFile', iconFile);
         }
         
         try {
-            const response = await fetch(`${API_URL}/api/buttons/${buttonId}`, {
+            const response = await fetch(`${API_URL}/api/buttons/${id}`, {
                 method: 'PUT',
                 body: formData
             });
@@ -285,15 +370,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 const updatedButton = await response.json();
                 
                 // Update the button in the config
-                const buttonIndex = config.buttons.findIndex(b => b.id === buttonId);
+                const buttonIndex = config.buttons.findIndex(b => b.id === id);
                 if (buttonIndex !== -1) {
                     config.buttons[buttonIndex] = updatedButton;
                 }
                 
+                // Update the UI
                 renderGrid();
                 renderButtonList();
                 editModal.style.display = 'none';
-                alert('Button updated successfully');
+                
+                // Reset the form
+                event.target.reset();
+            } else {
+                const error = await response.json();
+                alert(error.message || 'Failed to update button');
             }
         } catch (error) {
             console.error('Error updating button:', error);
@@ -313,10 +404,15 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (response.ok) {
                 // Remove the button from the config
-                config.buttons = config.buttons.filter(b => b.id !== id);
+                config.buttons = config.buttons.filter(button => button.id !== id);
+                
+                // Update the UI
                 renderGrid();
                 renderButtonList();
                 alert('Button deleted successfully');
+            } else {
+                const error = await response.json();
+                alert(error.message || 'Failed to delete button');
             }
         } catch (error) {
             console.error('Error deleting button:', error);
