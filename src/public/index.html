@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FreeStreamDeck</title>
+    <title>Free StreamDeck</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script type="importmap">
+    {
+      "imports": {
+        "@material/web/": "https://esm.run/@material/web/"
+      }
+    }
+  </script>
+    <script type="module">
+        import '@material/web/all.js';
+        import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
+
+        document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
+    </script>
 </head>
+
 <body>
     <div class="app-container">
         <header>
@@ -41,40 +57,55 @@
                     <div class="config-section">
                         <h3>Global Settings</h3>
                         <div class="form-group">
-                            <label for="grid-size">Grid Size (4-24):</label>
-                            <input type="number" id="grid-size" min="4" max="24" value="8">
-                            <button id="save-grid-btn" class="btn">Save Grid Size</button>
+                            <div>
+                                <label for="grid-size">Grid Size (4-24):</label>
+                                <input type="number" id="grid-size" min="4" max="24" value="8">
+                            </div>
+                            <div>
+                                <button id="save-grid-btn" class="btn">Save Grid Size</button>
+                            </div>
+
                         </div>
                     </div>
 
                     <div class="config-section">
                         <h3>Add New Button</h3>
                         <form id="new-button-form">
-                            <div class="form-group">
-                                <label for="button-name">Name:</label>
-                                <input type="text" id="button-name" required>
+                            <div class="form-row">
+                                <div class="form-group form-group-half">
+                                    <label for="button-name">Name:</label>
+                                    <input type="text" id="button-name" required>
+                                </div>
+                                <div class="form-group form-group-half">
+                                    <label for="button-url">URL:</label>
+                                    <input type="text" id="button-url" required>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="button-url">URL:</label>
-                                <input type="text" id="button-url" required>
+
+                            <div class="form-row">
+                                <div class="form-group form-group-half">
+                                    <label for="button-icon">Icon (FontAwesome name):</label>
+                                    <input type="text" id="button-icon" placeholder="e.g., fas fa-home">
+                                    <small class="form-hint">Enter a FontAwesome icon name (e.g., 'fas fa-home')</small>
+                                </div>
+                                <div class="form-group form-group-half">
+                                    <label for="button-icon-file">Or upload custom icon:</label>
+                                    <input type="file" id="button-icon-file" accept="image/*">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="button-type">Type:</label>
-                                <select id="button-type">
-                                    <option value="WEB">Web</option>
-                                    <option value="APP">App</option>
-                                </select>
+
+                            <div class="form-row">
+                                <div class="form-group form-group-half">
+                                    <label for="button-type">Type:</label>
+                                    <select id="button-type">
+                                        <option value="WEB">Web</option>
+                                        <option value="APP">App</option>
+                                    </select>
+                                </div>
+                                <div class="form-group form-group-half">
+                                    <button type="submit" class="btn">Add Button</button>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="button-icon">Icon (FontAwesome name):</label>
-                                <input type="text" id="button-icon" placeholder="e.g., fas fa-home">
-                                <small class="form-hint">Enter a FontAwesome icon name (e.g., 'fas fa-home')</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="button-icon-file">Or upload custom icon:</label>
-                                <input type="file" id="button-icon-file" accept="image/*">
-                            </div>
-                            <button type="submit" class="btn">Add Button</button>
                         </form>
                     </div>
 
@@ -98,32 +129,44 @@
                 <div class="modal-body">
                     <form id="edit-button-form">
                         <input type="hidden" id="edit-button-id">
-                        <div class="form-group">
-                            <label for="edit-button-name">Name:</label>
-                            <input type="text" id="edit-button-name" required>
+                        <div class="form-row">
+                            <div class="form-group form-group-half">
+                                <label for="edit-button-name">Names:</label>
+                                <input type="text" id="edit-button-name" required>
+                            </div>
+                            <div class="form-group form-group-half">
+                                <label for="edit-button-url">URL:</label>
+                                <input type="text" id="edit-button-url" required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="edit-button-url">URL:</label>
-                            <input type="text" id="edit-button-url" required>
+
+                        <div class="form-row">
+                            <div class="form-group form-group-half">
+                                <label for="edit-button-icon">Icon (FontAwesome name):</label>
+                                <input type="text" id="edit-button-icon" placeholder="e.g., fas fa-home">
+                                <small class="form-hint">Enter a FontAwesome icon name (e.g., 'fas fa-home')</small>
+                            </div>
+                            <div class="form-group form-group-half">
+                                <label for="edit-button-icon-file">Or upload custom icon:</label>
+                                <input type="file" id="edit-button-icon-file" accept="image/*">
+                                <div id="current-icon-preview" class="icon-preview"></div>
+                            </div>
+
                         </div>
-                        <div class="form-group">
-                            <label for="edit-button-type">Type:</label>
-                            <select id="edit-button-type">
-                                <option value="WEB">Web</option>
-                                <option value="APP">App</option>
-                            </select>
+
+                        <div class="form-row">
+                            <div class="form-group form-group-half">
+                                <label for="edit-button-type">Type:</label>
+                                <select id="edit-button-type">
+                                    <option value="WEB">Web</option>
+                                    <option value="APP">App</option>
+                                </select>
+                            </div>
+                            <div class="form-group form-group-half">
+                                <button type="submit" class="btn">Update Button</button>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="edit-button-icon">Icon (FontAwesome name):</label>
-                            <input type="text" id="edit-button-icon" placeholder="e.g., fas fa-home">
-                            <small class="form-hint">Enter a FontAwesome icon name (e.g., 'fas fa-home')</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="edit-button-icon-file">Or upload custom icon:</label>
-                            <input type="file" id="edit-button-icon-file" accept="image/*">
-                            <div id="current-icon-preview" class="icon-preview"></div>
-                        </div>
-                        <button type="submit" class="btn">Update Button</button>
+
                     </form>
                 </div>
             </div>
@@ -132,4 +175,5 @@
 
     <script src="app.js"></script>
 </body>
+
 </html>
