@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free StreamDeck</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+    <script src="https://kit.fontawesome.com/4d41ca27e7.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <script type="importmap">
     {
@@ -27,18 +27,17 @@
 <body>
     <div class="app-container">
         <header>
-            <h1>brodriro - FreeStreamDeck</h1>
-            <div class="theme-toggle">
-                <i class="fas fa-moon"></i>
-                <label class="switch">
-                    <input type="checkbox" id="theme-switch">
-                    <span class="slider round"></span>
-                </label>
-                <i class="fas fa-sun"></i>
+            <h1>Free StreamDeck</h1>
+            <div class="header-controls">
+                <div class="theme-selector-container">
+                    <div class="theme-options">
+                    </div>
+                </div>
+               
+                <button id="config-btn" class="config-btn">
+                    <i class="fas fa-cog"></i> Settings
+                </button>
             </div>
-            <button id="config-btn" class="config-btn">
-                <i class="fas fa-cog"></i> Settings
-            </button>
         </header>
 
         <main>

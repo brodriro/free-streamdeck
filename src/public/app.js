@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const newButtonForm = document.getElementById('new-button-form');
     const editButtonForm = document.getElementById('edit-button-form');
     const buttonList = document.getElementById('button-list');
-    const themeSwitch = document.getElementById('theme-switch');
 
     // API URL
     const API_URL = window.location.origin;
@@ -21,22 +20,92 @@ document.addEventListener('DOMContentLoaded', () => {
         buttons: []
     };
 
-    // Theme handling
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        document.body.classList.add('dark-theme');
-        themeSwitch.checked = true;
-    }
-
-    themeSwitch.addEventListener('change', () => {
-        if (themeSwitch.checked) {
-            document.body.classList.add('dark-theme');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            document.body.classList.remove('dark-theme');
-            localStorage.setItem('theme', 'light');
+    // Theme configuration
+    const themes = {
+        light: {
+            name: 'Light',
+            isDark: false
+        },
+        dark: {
+            name: 'Dark',
+            isDark: true
+        },
+        'catppuccin-macchiato': {
+            name: 'Macchiato',
+            isDark: true
+        },
+        'catppuccin-mocha': {
+            name: 'Mocha',
+            isDark: true
         }
-    });
+    };
+
+    // Theme handling
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    applyTheme(savedTheme);
+
+    
+    // Add theme selector to the header
+    const themeOptionsContainer = document.querySelector('.theme-options');
+    if (themeOptionsContainer) {
+        // Create theme buttons
+        const themeButtons = Object.entries(themes).map(([id, theme]) => {
+            const button = document.createElement('button');
+            button.className = `theme-option ${savedTheme === id ? 'active' : ''}`;
+            button.dataset.theme = id;
+            button.textContent = theme.name;
+            return button.outerHTML;
+        }).join('');
+        
+        themeOptionsContainer.innerHTML = themeButtons;
+        
+        // Add event listeners to theme buttons
+        themeOptionsContainer.querySelectorAll('.theme-option').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const theme = e.target.dataset.theme;
+                applyTheme(theme);
+            });
+        });
+    }
+    
+    function applyTheme(theme) {
+        // Validate theme exists, default to light if not found
+        if (!themes[theme]) {
+            theme = 'light';
+        }
+
+        // Remove all theme classes first
+        const themeClasses = [
+            'light-theme', 
+            'dark-theme',
+            ...Object.keys(themes).filter(t => t.startsWith('catppuccin-'))
+        ];
+        document.body.classList.remove(...themeClasses);
+        
+        // Apply the selected theme
+        if (theme === 'light' || theme === 'dark') {
+            document.body.classList.add(`${theme}-theme`);
+        } else if (theme.startsWith('catppuccin-')) {
+            document.body.classList.add(theme);
+        } else {
+            // Fallback to light theme
+            document.body.classList.add('light-theme');
+            theme = 'light';
+        }
+        
+        // Save the selected theme
+        localStorage.setItem('theme', theme);
+        
+        // Update active state in theme selector
+        const themeOptions = document.querySelectorAll('.theme-option');
+        themeOptions.forEach(option => {
+            if (option.dataset.theme === theme) {
+                option.classList.add('active');
+            } else {
+                option.classList.remove('active');
+            }
+        });
+    }
 
     // Fetch initial config
     fetchConfig();
@@ -94,8 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createButtonElement(button) {
         const buttonElement = document.createElement('div');
         buttonElement.className = `button-item button-${button.state || 'empty'}`;
-        buttonElement.dataset.id = button.id;
-        console.log(button);    
+        buttonElement.dataset.id = button.id;  
         if (button.state !== 'empty') {
             // Check if it's a FontAwesome icon (starts with 'fa-' or 'fas ' etc.)
             if (button.icon && (button.icon.includes('fa-') || button.icon.startsWith('fas ') || button.icon.startsWith('far ') || button.icon.startsWith('fab '))) {
@@ -195,7 +263,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 config = await response.json();
                 renderGrid();
-                alert('Grid size updated successfully');
             }
         } catch (error) {
             console.error('Error updating grid size:', error);
@@ -378,7 +445,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Get selected value from md-select
         let selectedType = 'WEB';
         if (typeSelect) {
-            const selectedOption = typeSelect.querySelector('md-select-option[selected]');
+            const selectedOption = typeSelect;
+            console.log("selectedOption", selectedOption);
             if (selectedOption) {
                 selectedType = selectedOption.value || 'WEB';
             }

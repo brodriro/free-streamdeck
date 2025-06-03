@@ -211,7 +211,7 @@ app.delete('/api/buttons/:id', (req: Request, res: Response): void => {
     
     // Remove the button's icon file if it's not the default
     const button = config.buttons[buttonIndex];
-    if (button.icon && button.icon !== '/icons/default-icon.png') {
+    if (button.icon && button.icon !== 'fa-solid fa-atom ') {
       const iconPath = path.join(__dirname, 'public', button.icon);
       if (fs.existsSync(iconPath)) {
         fs.unlinkSync(iconPath);

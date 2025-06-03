@@ -1,18 +1,31 @@
-:root {
-  --primary-color: #4a6cf7;
-  --secondary-color: #6c757d;
-  --success-color: #28a745;
-  --danger-color: #dc3545;
-  --light-color: #f8f9fa;
-  --dark-color: #343a40;
-  --background-color: #ffffff;
-  --text-color: #212529;
-  --border-color: #dee2e6;
-  --button-empty: #e9ecef;
-  --button-on: #28a745;
-  --button-off: #373737;
-  --modal-background: rgba(0, 0, 0, 0.5);
-  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+:root, .light-theme {
+  /* Colores principales */
+  --primary-color: #5e35b1;  /* Púrpura más intenso */
+  --secondary-color: #6c757d;  /* Gris medio */
+  --success-color: #2e7d32;  /* Verde más suave */
+  --danger-color: #c62828;  /* Rojo cálido */
+  
+  /* Colores de fondo */
+  --light-color: #ffffff;  /* Blanco puro */
+  --dark-color: #1a1a1a;  /* Casi negro para texto */
+  --background-color: #f5f5f5;  /* Gris muy claro */
+  --text-color: #2d3436;  /* Gris oscuro para mejor legibilidad */
+  
+  /* Colores de interfaz */
+  --border-color: #e0e0e0;  /* Borde más suave */
+  --button-empty: #f0f0f0;  /* Fondo de botón inactivo */
+  --button-on: #2e7d32;     /* Botón activo (verde) */
+  --button-off: #e0e0e0;    /* Botón inactivo */
+  
+  /* Efectos */
+  --modal-background: rgba(255, 255, 255, 0.9);  /* Fondo de modal con transparencia */
+  --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  
+  /* Mejoras de contraste */
+  --text-secondary: #6c757d;
+  --card-bg: #ffffff;
+  --card-hover: #f8f9fa;
+  --input-bg: #ffffff;
 
   --md-outlined-text-field-container-shape: 4px;
   --md-sys-typescale-body-large: 400 1rem system-ui;
@@ -35,21 +48,29 @@
 }
 
 .dark-theme {
-  --primary-color: #4a6cf7;
-  --secondary-color: #6c757d;
-  --success-color: #28a745;
-  --danger-color: #dc3545;
-  --light-color: #343a40;
-  --dark-color: #f8f9fa;
-  --background-color: #121212;
-  --text-color: #f8f9fa;
-  --border-color: #495057;
-  --button-empty: #495057;
-  --button-on: #28a745;
-  --button-off: #121212;
-  --modal-background: rgba(0, 0, 0, 0.7);
-  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  /* Colores principales */
+  --primary-color: #7c4dff;  /* Púrpura suave */
+  --secondary-color: #9e9e9e;  /* Gris claro */
+  --success-color: #69f0ae;  /* Verde menta */
+  --danger-color: #ff6e6e;  /* Rojo suave */
+  
+  /* Colores de fondo */
+  --light-color: #1e1e2e;  /* Azul noche oscuro */
+  --dark-color: #f8f9fa;   /* Texto claro */
+  --background-color: #12121a;  /* Fondo más oscuro */
+  --text-color: #e2e2e2;  /* Texto gris claro */
+  
+  /* Colores de interfaz */
+  --border-color: #3a3a4a;  /* Borde más suave */
+  --button-empty: #2a2a3a;  /* Fondo de botón inactivo */
+  --button-on: #69f0ae;     /* Botón activo (verde) */
+  --button-off: #3a3a4a;    /* Botón inactivo */
+  
+  /* Efectos */
+  --modal-background: rgba(18, 18, 26, 0.9);  /* Fondo de modal más oscuro */
+  --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 
+  /* Estilos para componentes MD */
   --md-sys-color-primary: var(--primary-color);
   --md-outlined-text-field-hover-input-text-color: var(--primary-color);
   --md-outlined-text-field-focus-input-text-color: var(--text-color);
@@ -67,6 +88,117 @@
 
   --md-outlined-select-text-field-hover-label-text-color: var(--primary-color);
   --md-outlined-select-text-field-hover-outline-color: var(--primary-color);
+  
+  /* Mejoras de contraste */
+  --text-secondary: #a0a0a0;
+  --card-bg: #1e1e2e;
+  --card-hover: #2a2a3a;
+  --input-bg: #252538;
+}
+
+/* Catppuccin Themes */
+
+/* Macchiato */
+.catppuccin-macchiato {
+  --primary-color: #8aadf4; /* Blue */
+  --secondary-color: #b7bdf8; /* Lavender */
+  --success-color: #a6da95; /* Green */
+  --danger-color: #ed8796; /* Red */
+  --light-color: #24273a; /* Base */
+  --dark-color: #cad3f5; /* Text */
+  --background-color: #24273a; /* Base */
+  --text-color: #cad3f5; /* Text */
+  --border-color: #5b6078; /* Surface2 */
+  --button-empty: #363a4f; /* Surface0 */
+  --button-on: #a6da95; /* Green */
+  --button-off: #6e738d; /* Overlay0 */
+  --modal-background: rgba(110, 115, 141, 0.7); /* Overlay1 with transparency */
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* Mocha (Dark) */
+.catppuccin-mocha {
+  --primary-color: #89b4fa; /* Blue */
+  --secondary-color: #b4befe; /* Lavender */
+  --success-color: #a6e3a1; /* Green */
+  --danger-color: #f38ba8; /* Red */
+  --light-color: #1e1e2e; /* Base */
+  --dark-color: #cdd6f4; /* Text */
+  --background-color: #1e1e2e; /* Base */
+  --text-color: #cdd6f4; /* Text */
+  --border-color: #585b70; /* Surface2 */
+  --button-empty: #313244; /* Surface0 */
+  --button-on: #a6e3a1; /* Green */
+  --button-off: #7f849c; /* Overlay0 */
+  --modal-background: rgba(108, 112, 134, 0.7); /* Overlay1 with transparency */
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  
+  --md-sys-color-primary: var(--primary-color);
+  --md-outlined-text-field-hover-input-text-color: var(--primary-color);
+  --md-outlined-text-field-focus-input-text-color: var(--text-color);
+  --md-outlined-text-field-input-text-color: var(--text-color);
+
+  --md-outlined-text-field-label-text-color: var(--secondary-color);
+  --md-outlined-text-field-focus-label-text-color: var(--primary-color);
+  --md-outlined-text-field-hover-label-text-color: var(--primary-color);
+  --md-outlined-text-field-hover-outline-color: var(--primary-color);
+
+  --md-outlined-select-text-field-input-text-color: var(--text-color);
+  --md-outlined-select-text-field-focus-input-text-color: var(--text-color);
+  --md-outlined-select-text-field-hover-input-text-color: var(--text-color);
+  --md-outlined-select-text-field-focus-label-text-color: var(--primary-color);
+
+  --md-outlined-select-text-field-hover-label-text-color: var(--primary-color);
+  --md-outlined-select-text-field-hover-outline-color: var(--primary-color);
+}
+
+.catppuccin-light-theme {
+  /* Colores principales */
+  --primary-color: #5e35b1;  /* Púrpura más intenso */
+  --secondary-color: #6c757d;  /* Gris medio */
+  --success-color: #2e7d32;  /* Verde más suave */
+  --danger-color: #c62828;  /* Rojo cálido */
+  
+  /* Colores de fondo */
+  --light-color: #ffffff;  /* Blanco puro */
+  --dark-color: #1a1a1a;  /* Casi negro para texto */
+  --background-color: #f5f5f5;  /* Gris muy claro */
+  --text-color: #2d3436;  /* Gris oscuro para mejor legibilidad */
+  
+  /* Colores de interfaz */
+  --border-color: #e0e0e0;  /* Borde más suave */
+  --button-empty: #f0f0f0;  /* Fondo de botón inactivo */
+  --button-on: #2e7d32;     /* Botón activo (verde) */
+  --button-off: #e0e0e0;    /* Botón inactivo */
+  
+  /* Efectos */
+  --modal-background: rgba(255, 255, 255, 0.9);  /* Fondo de modal con transparencia */
+  --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+  /* Estilos para componentes MD */
+  --md-sys-color-primary: var(--primary-color);
+  --md-outlined-text-field-hover-input-text-color: var(--primary-color);
+  --md-outlined-text-field-focus-input-text-color: var(--text-color);
+  --md-outlined-text-field-input-text-color: var(--text-color);
+
+  --md-outlined-text-field-label-text-color: var(--secondary-color);
+  --md-outlined-text-field-focus-label-text-color: var(--primary-color);
+  --md-outlined-text-field-hover-label-text-color: var(--primary-color);
+  --md-outlined-text-field-hover-outline-color: var(--primary-color);
+
+  --md-outlined-select-text-field-input-text-color: var(--text-color);
+  --md-outlined-select-text-field-focus-input-text-color: var(--text-color);
+  --md-outlined-select-text-field-hover-input-text-color: var(--text-color);
+  --md-outlined-select-text-field-focus-label-text-color: var(--primary-color);
+
+  --md-outlined-select-text-field-hover-label-text-color: var(--primary-color);
+  --md-outlined-select-text-field-hover-outline-color: var(--primary-color);
+  
+  /* Mejoras de contraste */
+  --text-secondary: #6c757d;
+  --card-bg: #ffffff;
+  --card-hover: #f8f9fa;
+  --input-bg: #ffffff;
 }
 
 * {
@@ -95,6 +227,51 @@ header {
   padding: 20px 0;
   border-bottom: 1px solid var(--border-color);
   margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.theme-selector-container {
+  display: flex;
+  align-items: center;
+}
+
+.theme-options {
+  display: flex;
+  gap: 8px;
+  background-color: var(--light-color);
+  padding: 4px;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+}
+
+.theme-option {
+  padding: 4px 12px;
+  border-radius: 16px;
+  background-color: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 0.85em;
+  border: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.theme-option:hover {
+  background-color: var(--button-empty);
+}
+
+.theme-option.active {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 500;
 }
 
 header h1 {
@@ -164,17 +341,25 @@ input:checked+.slider:before {
   color: white;
   border: none;
   padding: 8px 16px;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 500;
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: background-color 0.3s;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .config-btn:hover {
-  background-color: #3a5bd9;
+  background-color: var(--primary-color);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.config-btn:active {
+  transform: translateY(0);
 }
 
 .grid-container {
@@ -206,9 +391,6 @@ input:checked+.slider:before {
     height: 40px;
   }
 
-  .button-name {
-    font-size: 12px;
-  }
 }
 
 .button-item {
@@ -216,15 +398,26 @@ input:checked+.slider:before {
   height: 120px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  border-radius: 8px;
+  align-items: center;
+  border-radius: 12px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
   cursor: pointer;
-  transition: all 0.3s;
-  padding: 10px;
-  box-shadow: var(--box-shadow);
+  transition: all 0.2s ease;
+  border: 2px solid var(--border-color);
+  padding: 12px;
   text-align: center;
+  position: relative;
   overflow: hidden;
+  box-shadow: var(--box-shadow);
+}
+
+.button-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  border-color: var(--primary-color);
+  background-color: var(--card-hover);
 }
 
 .button-empty {
@@ -243,22 +436,81 @@ input:checked+.slider:before {
   color: white;
 }
 
-.button-icon {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-  margin-bottom: 8px;
-}
-
 .button-name {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   margin-top: 6px;
   word-break: break-word;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
   white-space: nowrap;
+}
+
+/* Theme Selector */
+.theme-selector {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: var(--light-color);
+    border-radius: 8px;
+    box-shadow: var(--box-shadow);
+}
+
+.theme-selector h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--text-color);
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.theme-options {
+    display: contents;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.theme-category {
+    margin-top: 8px;
+    margin-bottom: 4px;
+    font-size: 0.9em;
+    font-weight: 500;
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.theme-option {
+    padding: 8px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 20px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    font-size: 0.95em;
+}
+
+.theme-option:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.theme-option.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* Catppuccin theme specific buttons */
+.theme-option[data-theme="catppuccin-latte"],
+.theme-option[data-theme="catppuccin-frappe"],
+theme-option[data-theme="catppuccin-macchiato"],
+theme-option[data-theme="catppuccin-mocha"] {
+    margin-left: 15px;
 }
 
 /* Modal Styles */
@@ -385,6 +637,7 @@ input:checked+.slider:before {
   width: 30px;
   height: 30px;
   object-fit: contain;
+  display: contents;
 }
 
 .button-list-actions {
@@ -441,7 +694,7 @@ input:checked+.slider:before {
   }
 
   .button-list-item {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
     gap: 10px;
   }

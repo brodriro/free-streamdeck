@@ -15,15 +15,55 @@
       "icon": "fa-solid fa-font-awesome",
       "url": "https://fontawesome.com/icons",
       "type": "WEB",
-      "state": "on"
+      "state": "off"
     },
     {
       "id": "1748923176574",
-      "name": "sdasasd",
-      "icon": "pepew",
-      "url": "gtihub.com",
+      "name": "Warp",
+      "icon": "fa-solid fa-terminal",
+      "url": "Warp",
+      "type": "APP",
+      "state": "on"
+    },
+    {
+      "id": "1748993525053",
+      "name": "Android Studio",
+      "icon": "fa-brands fa-android",
+      "url": "Android Studio",
+      "type": "APP",
+      "state": "on"
+    },
+    {
+      "id": "1748993645483",
+      "name": "WindSurf",
+      "icon": "fa-solid fa-code",
+      "url": "Windsurf",
+      "type": "APP",
+      "state": "on"
+    },
+    {
+      "id": "1748993717427",
+      "name": "Spotify",
+      "icon": "fa-solid fa-circle-play",
+      "url": "Spotify",
+      "type": "APP",
+      "state": "on"
+    },
+    {
+      "id": "1748994149748",
+      "name": "LinkedIn",
+      "icon": "fa-brands fa-linkedin",
+      "url": "https://www.linkedin.com/feed/",
       "type": "WEB",
-      "state": "off"
+      "state": "on"
+    },
+    {
+      "id": "1748994240162",
+      "name": "Kick",
+      "icon": "fa-brands fa-kickstarter-k",
+      "url": "https://kick.com/",
+      "type": "WEB",
+      "state": "on"
     }
   ]
 }
