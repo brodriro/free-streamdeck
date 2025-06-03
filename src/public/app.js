@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (button.icon && (button.icon.includes('fa-') || button.icon.startsWith('fas ') || button.icon.startsWith('far ') || button.icon.startsWith('fab '))) {
                 const iconElement = document.createElement('i');
                 // Ensure the icon class is properly formatted
-                const iconClass = button.icon.trim().startsWith('fa-') ? `fas ${button.icon}` : button.icon;
+                const iconClass = button.icon.trim().startsWith('fa-') ? `${button.icon}` : button.icon;
                 iconElement.className = `button-icon ${iconClass}`;
                 buttonElement.appendChild(iconElement);
             } else if (button.icon) {
@@ -308,31 +308,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openEditModal(button) {
         document.getElementById('edit-button-id').value = button.id;
-        document.getElementById('edit-button-name').value = button.name || '';
-        document.getElementById('edit-button-url').value = button.url || '';
-        document.getElementById('edit-button-type').value = button.type || 'WEB';
+        
+        // Set values for Material Web Components
+        const nameField = document.querySelector('#edit-button-name');
+        const urlField = document.querySelector('#edit-button-url');
+        const typeSelect = document.querySelector('#edit-button-type');
+        const iconField = document.querySelector('#edit-button-icon');
+        
+        if (nameField) nameField.value = button.name || '';
+        if (urlField) urlField.value = button.url || '';
+        
+        // Set the selected option in the select
+        if (typeSelect) {
+            const options = typeSelect.querySelectorAll('md-select-option');
+            options.forEach(option => {
+                if (option.value === (button.type || 'WEB')) {
+                    option.selected = true;
+                } else {
+                    option.selected = false;
+                }
+            });
+        }
         
         // Clear previous icon inputs
-        document.getElementById('edit-button-icon').value = '';
-        document.getElementById('edit-button-icon-file').value = '';
+        if (iconField) iconField.value = '';
+        const iconFileInput = document.getElementById('edit-button-icon-file');
+        if (iconFileInput) iconFileInput.value = '';
         
         const preview = document.getElementById('current-icon-preview');
-        preview.innerHTML = '';
-        
-        if (button.icon) {
-            // Check if it's a FontAwesome icon
-            if (button.icon.startsWith('fas ') || button.icon.startsWith('far ') || button.icon.startsWith('fab ')) {
-                const icon = document.createElement('i');
-                icon.className = `fa-2x ${button.icon}`;
-                preview.appendChild(icon);
-                document.getElementById('edit-button-icon').value = button.icon;
-            } else {
-                // It's an image icon
-                const img = document.createElement('img');
-                img.src = button.icon;
-                img.style.maxWidth = '100%';
-                img.style.maxHeight = '100px';
-                preview.appendChild(img);
+        if (preview) {
+            preview.innerHTML = '';
+            
+            if (button.icon) {
+                // Check if it's a FontAwesome icon
+                if (button.icon.startsWith('fa') || button.icon.startsWith('far ') || button.icon.startsWith('fab ')) {
+                    const icon = document.createElement('i');
+                    icon.className = `fa-2x ${button.icon}`;
+                    preview.appendChild(icon);
+                    if (iconField) iconField.value = button.icon;
+                } else {
+                    // It's an image icon
+                    const img = document.createElement('img');
+                    img.src = button.icon;
+                    img.style.maxWidth = '100%';
+                    img.style.maxHeight = '100px';
+                    preview.appendChild(img);
+                }
             }
         }
         
@@ -344,20 +365,36 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const id = document.getElementById('edit-button-id').value;
         const formData = new FormData();
-        formData.append('name', document.getElementById('edit-button-name').value);
-        formData.append('url', document.getElementById('edit-button-url').value);
-        formData.append('type', document.getElementById('edit-button-type').value);
+        
+        // Get values from Material Web Components
+        const nameField = document.querySelector('#edit-button-name');
+        const urlField = document.querySelector('#edit-button-url');
+        const typeSelect = document.querySelector('#edit-button-type');
+        const iconField = document.querySelector('#edit-button-icon');
+        
+        if (nameField) formData.append('name', nameField.value || '');
+        if (urlField) formData.append('url', urlField.value || '');
+        
+        // Get selected value from md-select
+        let selectedType = 'WEB';
+        if (typeSelect) {
+            const selectedOption = typeSelect.querySelector('md-select-option[selected]');
+            if (selectedOption) {
+                selectedType = selectedOption.value || 'WEB';
+            }
+        }
+        formData.append('type', selectedType);
         
         // Handle FontAwesome icon
-        const fontAwesomeIcon = document.getElementById('edit-button-icon').value.trim();
+        const fontAwesomeIcon = iconField ? iconField.value.trim() : '';
         if (fontAwesomeIcon) {
             formData.append('icon', fontAwesomeIcon);
         }
         
         // Handle file upload
-        const iconFile = document.getElementById('edit-button-icon-file').files[0];
-        if (iconFile) {
-            formData.append('iconFile', iconFile);
+        const iconFileInput = document.getElementById('edit-button-icon-file');
+        if (iconFileInput && iconFileInput.files && iconFileInput.files[0]) {
+            formData.append('iconFile', iconFileInput.files[0]);
         }
         
         try {

@@ -57,12 +57,11 @@
                 <div class="modal-body">
                     <div class="config-section">
                         <h3>Global Settings</h3>
-                        <div class="form-group">
-                            <div>
-                                <label for="grid-size">Grid Size (4-24):</label>
-                                <input type="number" id="grid-size" min="4" max="24" value="8">
+                        <div class="form-row">
+                            <div class="form-group form-group-half">
+                                <md-outlined-text-field type="number" label="Grid Size (4-24)" id="grid-size" min="4" max="24" value="8">
                             </div>
-                            <div>
+                            <div class="form-group form-group-half">
                                 <button id="save-grid-btn" class="btn">Save Grid Size</button>
                             </div>
 
@@ -87,18 +86,17 @@
                                     <small class="form-hint">Enter a FontAwesome icon name</small>
                                 </div>
                                 <div class="form-group form-group-half">
-                                    <label for="button-icon-file">Or upload custom icon:</label>
+                                    <label for="button-icon-file">Or upload custom icon</label>
                                     <input type="file" id="button-icon-file" accept="image/*">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group form-group-half">
-                                    <label for="button-type">Type:</label>
-                                    <select id="button-type">
-                                        <option value="WEB">Web</option>
-                                        <option value="APP">App</option>
-                                    </select>
+                                    <md-outlined-select label="Type" id="button-type">
+                                        <md-select-option  selected value="WEB">Web</md-select-option>
+                                        <md-select-option value="APP">App</md-select-option>
+                                    </md-outlined-select>
                                 </div>
                                 <div class="form-group form-group-half">
                                     <button type="submit" class="btn">Add Button</button>
@@ -150,11 +148,10 @@
 
                         <div class="form-row">
                             <div class="form-group form-group-half">
-                                <label for="edit-button-type">Type:</label>
-                                <select id="edit-button-type">
-                                    <option value="WEB">Web</option>
-                                    <option value="APP">App</option>
-                                </select>
+                                <md-outlined-select label="Type" id="edit-button-type">
+                                    <md-select-option selected value="WEB">Web</md-select-option>
+                                    <md-select-option value="APP">App</md-select-option>
+                                </md-outlined-select>
                             </div>
                             <div class="form-group form-group-half">
                                 <button type="submit" class="btn">Update Button</button>

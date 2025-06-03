@@ -27,6 +27,11 @@
   --md-outlined-text-field-focus-label-text-color: var(--primary-color);
   --md-outlined-text-field-hover-label-text-color: var(--primary-color);
   --md-outlined-text-field-hover-outline-color: var(--primary-color);
+
+  --md-outlined-select-text-field-input-text-color: var(--text-color);
+  --md-outlined-select-text-field-focus-label-text-color: var(--primary-color);
+  --md-outlined-select-text-field-focus-input-text-color: var(--text-color);
+
 }
 
 .dark-theme {
@@ -55,7 +60,13 @@
   --md-outlined-text-field-hover-label-text-color: var(--primary-color);
   --md-outlined-text-field-hover-outline-color: var(--primary-color);
 
+  --md-outlined-select-text-field-input-text-color: var(--text-color);
+  --md-outlined-select-text-field-focus-input-text-color: var(--text-color);
+  --md-outlined-select-text-field-hover-input-text-color: var(--text-color);
+  --md-outlined-select-text-field-focus-label-text-color: var(--primary-color);
 
+  --md-outlined-select-text-field-hover-label-text-color: var(--primary-color);
+  --md-outlined-select-text-field-hover-outline-color: var(--primary-color);
 }
 
 * {
@@ -193,7 +204,6 @@ input:checked+.slider:before {
   .button-icon {
     width: 40px;
     height: 40px;
-    font-size: 5em;
   }
 
   .button-name {
@@ -300,6 +310,7 @@ input:checked+.slider:before {
 }
 
 .form-row {
+  align-items: center;
   display: flex;
   gap: 15px;
   margin-bottom: 15px;

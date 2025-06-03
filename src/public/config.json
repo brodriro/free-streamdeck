@@ -7,6 +7,22 @@
       "icon": "fa-brands fa-github",
       "url": "https://github.com/brodriro",
       "type": "WEB",
+      "state": "on"
+    },
+    {
+      "id": "1748919981407",
+      "name": "FontAwesome",
+      "icon": "fa-solid fa-font-awesome",
+      "url": "https://fontawesome.com/icons",
+      "type": "WEB",
+      "state": "on"
+    },
+    {
+      "id": "1748923176574",
+      "name": "sdasasd",
+      "icon": "pepew",
+      "url": "gtihub.com",
+      "type": "WEB",
       "state": "off"
     }
   ]
