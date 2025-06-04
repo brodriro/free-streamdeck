@@ -1,74 +1,147 @@
-# FreeStreamDeck
+# Free StreamDeck
 
-A web-based StreamDeck application with a Node.js backend that allows you to create customizable buttons to launch applications and websites.
+A free and open-source alternative to the Elgato Stream Deck. This web-based application allows you to create customizable buttons to launch applications, websites, or perform custom actions with a clean and intuitive interface.
 
 ## Features
 
-- Create a customizable grid of buttons (4-24 buttons)
-- Each button can launch websites or applications
-- Three button states: Empty, On, and Off
-- Customizable icons and labels for each button
-- Light and dark theme support
-- Responsive design for various screen sizes
-- Configuration panel to manage buttons and settings
+- **Modern, Responsive UI**
+  - Clean, intuitive interface with smooth animations
+  - Fully responsive design that works on any screen size
+  - Real-time preview of changes
 
-## Tech Stack
+- **Multiple Themes**
+  - Light and dark mode support
+  - Additional themes: Macchiato and Mocha
+  - System preference detection for automatic theme switching
 
-- **Backend**: Node.js with Express and TypeScript
-- **Frontend**: HTML, CSS, and JavaScript
-- **File Handling**: Multer for icon uploads
+- **Customizable Grid**
+  - Adjustable grid size from 4 to 24 buttons
+  - Drag and drop interface for easy organization
+  - Visual feedback for button states
 
-## Installation
+- **Button Customization**
+  - Custom names and icons for each button
+  - Support for FontAwesome icons and custom images
+  - Multiple button types: Web URLs and local applications
+  - Button states: Empty, Active, Inactive
+
+- **Easy Configuration**
+  - In-app settings panel
+  - Import/export configuration
+  - Keyboard shortcuts for common actions
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm (v6 or higher)
+- Modern web browser (Chrome, Firefox, Edge, or Safari)
+
+### Installation
 
 1. Clone the repository:
-   ```
+   ```bash
    git clone https://github.com/brodriro/free-streamdeck.git
    cd free-streamdeck
    ```
 
 2. Install dependencies:
-   ```
+   ```bash
    npm install
    ```
 
-3. Build the project:
-   ```
-   npm run build
-   ```
-
-4. Start the server:
-   ```
+3. Start the application:
+   ```bash
    npm start
    ```
 
-## Development
+4. Open your browser and navigate to:
+   ```
+   http://localhost:3000
+   ```
+
+### Development
 
 To run the application in development mode with hot reloading:
 
-```
+```bash
 npm run dev
 ```
 
 ## Usage
 
-1. Open your browser and navigate to `http://localhost:3000`
-2. The main screen displays a grid of buttons (default: 8)
-3. Click the Settings button to configure the StreamDeck
-4. In the configuration panel, you can:
-   - Change the grid size (4-24 buttons)
-   - Add new buttons with icons, names, and URLs
-   - Edit or delete existing buttons
-5. Click on a button in the main grid to activate it (launch website or application)
+### Basic Navigation
 
-## Button Configuration
+- **Main Grid**: Displays all your configured buttons
+- **Settings Panel**: Access configuration options by clicking the gear icon
+- **Theme Selector**: Change themes from the top navigation
 
-When adding a new button, you can configure:
+### Button Configuration
 
-- **Name**: A descriptive name for the button
-- **URL**: The website URL or application path to open
-- **Type**: Web (opens in browser) or App (opens as application)
-- **Icon**: Custom image for the button
+1. Click the "+" button to add a new button
+2. Configure the button properties:
+   - **Name**: Display text for the button
+   - **Type**: Choose between Web or App
+   - **URL/Path**: Website URL or application path
+   - **Icon**: Select from FontAwesome or upload custom image
+   - **Color**: Choose a custom color (coming soon)
+
+3. Click "Save" to apply changes
+
+### Themes
+
+- Switch between Light, Dark, Macchiato, and Mocha themes
+- Theme preference is saved in your browser
+- Automatic theme switching based on system preference
+
+## Responsive Design
+
+The application is fully responsive and works on:
+- Desktop computers
+- Laptops
+- Tablets
+- Mobile devices (with limited functionality)
+
+## Technologies Used
+
+- **Frontend**
+  - HTML5, CSS3, JavaScript (ES6+)
+  - CSS Variables for theming
+  - FontAwesome for icons
+  - Responsive design with Flexbox/Grid
+
+- **Backend**
+  - Node.js with Express
+  - File system for data persistence
+  - RESTful API architecture
+
+## Contributing
+
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## License
 
-ISC
+Distributed under the ISC License. See `LICENSE` for more information.
+
+## Contact
+
+Brian Rodriguez - [@brodriro](https://x.com/brodriro)
+
+Project Link: [https://github.com/brodriro/free-streamdeck](https://github.com/brodriro/free-streamdeck)
+
+## Acknowledgments
+
+- [FontAwesome](https://fontawesome.com/) for the amazing icons
+- [Google Fonts](https://fonts.google.com/) for the typography
+- All contributors who have helped improve this project
+
+---
+
+Made with ❤️ by [Brian Rodriguez] | [GitHub](https://github.com/brodriro)
