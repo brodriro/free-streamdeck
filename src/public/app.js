@@ -44,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme') || 'light';
     applyTheme(savedTheme);
 
-    
     // Add theme selector to the header
     const themeOptionsContainer = document.querySelector('.theme-options');
     if (themeOptionsContainer) {

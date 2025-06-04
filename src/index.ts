@@ -51,24 +51,74 @@ const upload = multer({ storage });
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/icons', express.static(path.join(__dirname, 'public/icons')));
 
-// Ensure the icons directory exists
-const iconsDir = path.join(__dirname, 'public/icons');
-if (!fs.existsSync(iconsDir)) {
-  fs.mkdirSync(iconsDir, { recursive: true });
+// Configuración de archivos estáticos
+const publicDir = path.join(__dirname, 'public');
+
+// Servir archivos estáticos desde la carpeta public
+app.use(express.static(publicDir, {
+  index: false, // No servir index.html automáticamente
+  maxAge: '1d'   // Cachear archivos estáticos por 1 día
+}));
+
+// Ruta específica para los íconos
+app.use('/icons', express.static(path.join(publicDir, 'icons'), {
+  maxAge: '7d' // Cachear íconos por más tiempo
+}));
+
+// Asegurar que los directorios necesarios existan
+const requiredDirs = [
+  path.join(publicDir, 'icons'),
+  path.join(__dirname, '../config')
+];
+
+requiredDirs.forEach(dir => {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+    console.log(`Created directory: ${dir}`);
+  }
+});
+
+// Config directory and file paths
+const configDir = path.join(__dirname, '../config');
+const configPath = path.join(configDir, 'config.json');
+const exampleConfigPath = path.join(configDir, 'example.config.json');
+
+// Ensure config directory exists
+if (!fs.existsSync(configDir)) {
+  fs.mkdirSync(configDir, { recursive: true });
+  console.log('Created config directory at:', configDir);
 }
 
-// Data file path
-const configPath = path.join(__dirname, 'public/config.json');
-
-// Initialize config if it doesn't exist
+// Initialize config files if they don't exist
 if (!fs.existsSync(configPath)) {
   const initialConfig: Config = {
     gridSize: 8,
     buttons: []
   };
+  
+  // Write main config file
   fs.writeFileSync(configPath, JSON.stringify(initialConfig, null, 2));
+  console.log('Created config file at:', configPath);
+  
+  // Create example config file if it doesn't exist
+  if (!fs.existsSync(exampleConfigPath)) {
+    const exampleConfig = {
+      gridSize: 8,
+      buttons: [
+        {
+          id: 'example-button-1',
+          name: 'Example Button',
+          icon: 'fa-solid fa-star',
+          url: 'https://example.com',
+          type: 'WEB',
+          state: 'on'
+        }
+      ]
+    };
+    fs.writeFileSync(exampleConfigPath, JSON.stringify(exampleConfig, null, 2));
+    console.log('Created example config file at:', exampleConfigPath);
+  }
 }
 
 // Helper to read config
@@ -92,6 +142,11 @@ const writeConfig = (config: Config): void => {
 };
 
 // Routes
+// Serve index.html for the root route
+app.get('/', (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // Get config
 app.get('/api/config', (req: Request, res: Response): void => {
   const config = readConfig();
@@ -242,7 +297,7 @@ app.post('/api/buttons/:id/activate', (req: Request, res: Response): void => {
     }
     
     // Toggle button state
-    button.state = button.state === 'on' ? 'off' : 'on';
+    //button.state = button.state === 'on' ? 'off' : 'on';
     writeConfig(config);
     
     // Execute the action based on button type
